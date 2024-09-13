@@ -1,2 +1,2 @@
-# odoo-test
-hello hi hi
+# odoo_school
+test
