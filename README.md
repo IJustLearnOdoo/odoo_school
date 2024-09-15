@@ -1,2 +1,2 @@
 # odoo_school
-hello odoo
+hello odoo!
