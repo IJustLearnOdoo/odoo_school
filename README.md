@@ -1,2 +1,2 @@
 # odoo_school
-test
+hello odoo
