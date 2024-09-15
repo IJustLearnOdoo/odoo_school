@@ -1,9 +1,7 @@
 {
     'name': 'Hospital Management',
     'version': '17.0.1.0.0',
-    'category': 'Human Resources',
     'summary': 'Manage your hospital',
-    'description': 'This module helps to manage hospital operations',
     'category': 'Human Resources',
     'author': 'Oleksandr Panchenko',
     'website': 'https://odoo.school',
