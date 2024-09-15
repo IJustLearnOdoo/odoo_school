@@ -1,47 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <data noupdate="1">
-        <!-- Demo Doctors -->
-        <record id="doctor_house" model="hr_hospital.doctor">
-            <field name="name">Dr. Gregory House</field>
-            <field name="specialization">Therapist</field>
-            <field name="phone">+380456123789</field>
-        </record>
-        <record id="doctor_ulysses" model="hr_hospital.doctor">
-            <field name="name">Dr. Percival Ulysses</field>
-            <field name="specialization">Neurologist</field>
-            <field name="phone">+380321456987</field>
-        </record>
-        <record id="doctor_dorian" model="hr_hospital.doctor">
-            <field name="name">Dr. John Dorian</field>
-            <field name="specialization">Psychiatrist</field>
-            <field name="phone">+380789321456</field>
-        </record>
+<odoo noupdate="1">
+    <!-- Demo Doctors -->
+    <record id="doctor_house" model="hr_hospital.doctor">
+        <field name="name">Dr. Gregory House</field>
+        <field name="specialization">Therapist</field>
+        <field name="phone">+380456123789</field>
+    </record>
+    <record id="doctor_ulysses" model="hr_hospital.doctor">
+        <field name="name">Dr. Percival Ulysses</field>
+        <field name="specialization">Neurologist</field>
+        <field name="phone">+380321456987</field>
+    </record>
+    <record id="doctor_dorian" model="hr_hospital.doctor">
+        <field name="name">Dr. John Dorian</field>
+        <field name="specialization">Psychiatrist</field>
+        <field name="phone">+380789321456</field>
+    </record>
 
-        <!-- Demo Patients -->
-        <record id="patient_brown" model="hr_hospital.patient">
-            <field name="name">Oleksandr Panchenko</field>
-            <field name="birthday">1991-08-22</field>
-            <field name="age">33</field>
-            <field name="gender">male</field>
-            <field name="phone">+380963679081</field>
-            <field name="doctor_id" ref="doctor_house"/>
-        </record>
-        <record id="patient_davis" model="hr_hospital.patient">
-            <field name="name">Gaëtan Dugas</field>
-            <field name="birthday">1953-02-20</field>
-            <field name="age">71</field>
-            <field name="gender">male</field>
-            <field name="phone">+380852147963</field>
-            <field name="doctor_id" ref="doctor_ulysses"/>
-        </record>
-        <record id="patient_wilson" model="hr_hospital.patient">
-            <field name="name">Typhoid Mary</field>
-            <field name="birthday">1869-09-22</field>
-            <field name="age">154</field>
-            <field name="gender">female</field>
-            <field name="phone">+380897564231</field>
-            <field name="doctor_id" ref="doctor_dorian"/>
-        </record>
-    </data>
+    <!-- Demo Patients -->
+    <record id="patient_brown" model="hr_hospital.patient">
+        <field name="name">Oleksandr Panchenko</field>
+        <field name="birthday">1991-08-22</field>
+        <field name="age">33</field>
+        <field name="gender">male</field>
+        <field name="phone">+380963679081</field>
+        <field name="doctor_id" ref="doctor_house"/>
+    </record>
+    <record id="patient_davis" model="hr_hospital.patient">
+        <field name="name">Gaëtan Dugas</field>
+        <field name="birthday">1953-02-20</field>
+        <field name="age">71</field>
+        <field name="gender">male</field>
+        <field name="phone">+380852147963</field>
+        <field name="doctor_id" ref="doctor_ulysses"/>
+    </record>
+    <record id="patient_wilson" model="hr_hospital.patient">
+        <field name="name">Typhoid Mary</field>
+        <field name="birthday">1869-09-22</field>
+        <field name="age">154</field>
+        <field name="gender">female</field>
+        <field name="phone">+380897564231</field>
+        <field name="doctor_id" ref="doctor_dorian"/>
+    </record>
 </odoo>
