@@ -1,6 +1,7 @@
 from datetime import date
 from odoo import models, fields, api
 
+
 class Patient(models.Model):
     _name = 'hr_hospital.patient'
     _description = 'Patient'
@@ -19,8 +20,9 @@ class Patient(models.Model):
         for patient in self:
             if patient.birthday:
                 age = today.year - patient.birthday.year
-                if today.month < patient.birthday.month or (
-                        today.month == patient.birthday.month and today.day < patient.birthday.day):
+                if (today.month < patient.birthday.month or
+                        (today.month == patient.birthday.month and
+                         today.day < patient.birthday.day)):
                     age -= 1
                 patient.age = age
             else:
