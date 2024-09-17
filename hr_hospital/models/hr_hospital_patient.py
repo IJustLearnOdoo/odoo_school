@@ -2,7 +2,7 @@ from datetime import date
 from odoo import models, fields, api
 
 
-class Patient(models.Model):
+class HospitalPatient(models.Model):
     _name = 'hr_hospital.patient'
     _description = 'Patient'
 
