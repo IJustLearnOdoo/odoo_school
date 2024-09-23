@@ -3,17 +3,22 @@
     <record id="doctor_house" model="hr_hospital.doctor">
         <field name="name">Dr. Gregory House</field>
         <field name="specialization">therapist</field>
+        <field name="gender">male</field>
         <field name="phone">+380456123789</field>
     </record>
     <record id="doctor_ulysses" model="hr_hospital.doctor">
         <field name="name">Dr. Percival Ulysses</field>
         <field name="specialization">neurologist</field>
+        <field name="gender">male</field>
         <field name="phone">+380321456987</field>
     </record>
     <record id="doctor_dorian" model="hr_hospital.doctor">
         <field name="name">Dr. John Dorian</field>
         <field name="specialization">psychiatrist</field>
+        <field name="gender">male</field>
         <field name="phone">+380789321456</field>
+        <field name="is_intern">true</field>
+        <field name="mentor_id" ref="doctor_house" />
     </record>
 
     <record id="patient_brown" model="hr_hospital.patient">
