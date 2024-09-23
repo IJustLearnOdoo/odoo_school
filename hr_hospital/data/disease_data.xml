@@ -1,17 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="1">
-    <record id="disease_flu" model="hr_hospital.disease">
-        <field name="name">Flu</field>
-        <field name="description">Influenza, commonly known as the flu, is a viral infection that attacks your respiratory system.</field>
+    <record id="disease_cardiovascular" model="hr_hospital.disease">
+        <field name="name">Cardiovascular Diseases</field>
+        <field name="description">Diseases that affect the heart or blood vessels.</field>
+    </record>
+
+    <record id="disease_heart_attack" model="hr_hospital.disease">
+        <field name="name">Heart Attack</field>
+        <field name="parent_id" ref="disease_cardiovascular"/>
+        <field name="description">A blockage of blood flow to the heart muscle.</field>
+    </record>
+
+    <record id="disease_stroke" model="hr_hospital.disease">
+        <field name="name">Stroke</field>
+        <field name="parent_id" ref="disease_cardiovascular"/>
+        <field name="description">A blockage or bleeding in the brain.</field>
+    </record>
+
+    <record id="disease_respiratory" model="hr_hospital.disease">
+        <field name="name">Respiratory Diseases</field>
+        <field name="description">Diseases that affect the lungs and respiratory system.</field>
+    </record>
+
+    <record id="disease_asthma" model="hr_hospital.disease">
+        <field name="name">Asthma</field>
+        <field name="parent_id" ref="disease_respiratory"/>
+        <field name="description">A condition in which airways narrow and swell and may produce extra mucus.</field>
     </record>
 
     <record id="disease_pneumonia" model="hr_hospital.disease">
         <field name="name">Pneumonia</field>
-        <field name="description">Pneumonia is an infection that inflames the air sacs in one or both lungs.</field>
-    </record>
-
-    <record id="disease_diabetes" model="hr_hospital.disease">
-        <field name="name">Diabetes</field>
-        <field name="description">Diabetes is a disease that occurs when your blood glucose, also called blood sugar, is too high.</field>
+        <field name="parent_id" ref="disease_respiratory"/>
+        <field name="description">An infection that inflames air sacs in one or both lungs.</field>
     </record>
 </odoo>
