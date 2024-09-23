@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bulk_doctor_assignment_form_unique" model="ir.ui.view">
+        <field name="name">hr_hospital.bulk_doctor_assignment.form</field>
+        <field name="model">hr_hospital.bulk_doctor_assignment</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="doctor_id"/>
+                </group>
+                <footer>
+                    <button name="assign_doctor" string="Assign" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_bulk_doctor_assignment_unique" model="ir.actions.act_window">
+        <field name="name">Bulk Assign Doctor</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr_hospital.bulk_doctor_assignment</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_hr_hospital_patient"/>
+        <field name="binding_view_types">list</field>
+    </record>
+</odoo>
