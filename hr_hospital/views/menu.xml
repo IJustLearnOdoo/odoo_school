@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <menuitem id="menu_hospital_root" name="Hospital">
-        <menuitem id="menu_patient" name="Patients" action="action_patient"/>
-        <menuitem id="menu_doctor" name="Doctors" action="action_doctor"/>
-        <menuitem id="menu_disease" name="Diseases" action="action_disease"/>
-        <menuitem id="menu_visit" name="Visits" action="action_visit"/>
-        <menuitem id="menu_diagnosis" name="Diagnoses" action="action_diagnosis"/>
-    </menuitem>
+    <record id="menu_hospital_root" model="ir.ui.menu">
+        <field name="name">Hospital</field>
+    </record>
+
+    <menuitem id="menu_patient" name="Patients" action="action_patient" parent="menu_hospital_root"/>
+    <menuitem id="menu_doctor" name="Doctors" action="action_doctor" parent="menu_hospital_root"/>
+    <menuitem id="menu_disease" name="Diseases" action="action_disease" parent="menu_hospital_root"/>
+    <menuitem id="menu_visit" name="Visits" action="action_visit" parent="menu_hospital_root"/>
+    <menuitem id="menu_diagnosis" name="Diagnoses" action="action_diagnosis" parent="menu_hospital_root"/>
 </odoo>
