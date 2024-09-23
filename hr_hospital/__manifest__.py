@@ -9,8 +9,6 @@
     'data': [
         'security/ir.model.access.csv',
         'views/doctor_views.xml',
-        'views/disease_report_views.xml',
-        'views/bulk_doctor_assignment_views.xml',
         'views/patient_views.xml',
         'views/disease_views.xml',
         'views/visit_views.xml',
@@ -20,7 +18,6 @@
         'data/disease_data.xml',
         'data/visit_data.xml',
         'data/cron_jobs.xml',
-        'wizards/bulk_doctor_assignment_views.xml',
         'wizards/disease_report_views.xml',
     ],
     'demo': [
