@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="visit_1" model="hr_hospital.visit">
+        <field name="patient_id" ref="patient_brown"/>
+        <field name="doctor_id" ref="doctor_house"/>
+        <field name="scheduled_date" eval="(datetime.now() + relativedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')"/>
+        <field name="status">scheduled</field>
+    </record>
+
+    <record id="visit_2" model="hr_hospital.visit">
+        <field name="patient_id" ref="patient_davis"/>
+        <field name="doctor_id" ref="doctor_ulysses"/>
+        <field name="scheduled_date" eval="(datetime.now() + relativedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')"/>
+        <field name="actual_date" eval="(datetime.now() - timedelta(days=2)).strftime('%Y-%m-%d %H:%M:%S')"/>
+        <field name="status">completed</field>
+    </record>
+
+    <record id="diagnosis_1" model="hr_hospital.diagnosis">
+        <field name="visit_id" ref="visit_2"/>
+        <field name="disease_id" ref="disease_asthma"/>
+        <field name="description">Patient shows signs of mild asthma. Prescribed inhaler and follow-up in 2 weeks.</field>
+        <field name="is_approved" eval="True"/>
+    </record>
+
+    <record id="diagnosis_2" model="hr_hospital.diagnosis">
+        <field name="visit_id" ref="visit_2"/>
+        <field name="disease_id" ref="disease_heart_attack"/>
+        <field name="description">Patient experienced chest pain. EKG shows no signs of heart attack. Recommended stress test.</field>
+        <field name="is_approved" eval="False"/>
+    </record>
+</odoo>
