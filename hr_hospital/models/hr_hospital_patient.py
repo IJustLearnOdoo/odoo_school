@@ -2,17 +2,23 @@ from datetime import date
 from odoo import models, fields, api
 
 
-class HospitalPatient(models.Model):
+class Patient(models.Model):
     _name = 'hr_hospital.patient'
     _description = 'Patient'
+    _inherit = 'hr_hospital.person'
 
-    name = fields.Char(required=True)
     birthday = fields.Date(required=True)
     age = fields.Integer(compute='_compute_age', store=True)
-    gender = fields.Selection([('male', 'Male'), ('female', 'Female')])
-    phone = fields.Char()
     doctor_id = fields.Many2one('hr_hospital.doctor')
     visit_ids = fields.One2many('hr_hospital.visit', 'patient_id')
+    passport_data = fields.Char()
+    contact_person = fields.Char()
+
+    @api.model
+    def _update_all_ages(self):
+        patients = self.search([])
+        for patient in patients:
+            patient._compute_age()
 
     @api.depends('birthday')
     def _compute_age(self):
