@@ -23,7 +23,6 @@ class Diagnosis(models.Model):
             if diagnosis.is_approved and diagnosis.needs_approval:
                 doctor = diagnosis.visit_id.doctor_id
                 if doctor.is_intern and doctor.mentor_id:
-                    # Перевіряємо, чи поточний користувач є ментором
                     if self.env.user.id != doctor.mentor_id.user_id.id:
                         raise ValidationError(_("Only the mentor can approve an intern's diagnosis."))
                 elif doctor.is_intern:

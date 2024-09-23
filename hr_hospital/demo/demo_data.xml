@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="1">
-    <!-- Demo Doctors -->
     <record id="doctor_house" model="hr_hospital.doctor">
         <field name="name">Dr. Gregory House</field>
         <field name="specialization">Therapist</field>
@@ -17,7 +16,6 @@
         <field name="phone">+380789321456</field>
     </record>
 
-    <!-- Demo Patients -->
     <record id="patient_brown" model="hr_hospital.patient">
         <field name="name">Oleksandr Panchenko</field>
         <field name="birthday">1991-08-22</field>

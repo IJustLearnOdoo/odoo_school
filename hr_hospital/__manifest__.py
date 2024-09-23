@@ -19,6 +19,7 @@
         'data/visit_data.xml',
         'data/cron_jobs.xml',
         'wizards/disease_report_views.xml',
+        'wizards/doctor_reassign_wizard_views.xml',
     ],
     'demo': [
         'demo/demo_data.xml',
