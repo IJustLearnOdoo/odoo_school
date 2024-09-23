@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_disease_report_form_unique" model="ir.ui.view">
+        <field name="name">hr_hospital.disease_report.form</field>
+        <field name="model">hr_hospital.disease_report</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <group>
+                        <field name="doctor_ids" widget="many2many_tags"/>
+                        <field name="disease_ids" widget="many2many_tags"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="Generate Report" name="generate_report" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_disease_report_unique" model="ir.actions.act_window">
+        <field name="name">Disease Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr_hospital.disease_report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="ir_action_disease_report_unique" model="ir.actions.server">
+        <field name="name">Disease Report</field>
+        <field name="model_id" ref="model_hr_hospital_doctor"/>
+        <field name="binding_model_id" ref="model_hr_hospital_doctor"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">
+    if records:
+        action = {
+            'name': 'Disease Report',
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'res_model': 'hr_hospital.disease_report',
+            'target': 'new',
+            'context': {'default_doctor_ids': records.ids},
+        }
+        </field>
+    </record>
+</odoo>

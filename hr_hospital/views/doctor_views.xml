@@ -6,10 +6,19 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
+                    <field name="photo" widget="image" class="oe_avatar"/>
                     <group>
-                        <field name="name"/>
-                        <field name="specialization"/>
-                         <field name="phone"/>
+                        <group>
+                            <field name="name"/>
+                            <field name="gender"/>
+                            <field name="specialization"/>
+                        </group>
+                        <group>
+                            <field name="phone"/>
+                            <field name="is_intern"/>
+                            <field name="mentor_id" invisible="not is_intern"/>
+                            <field name="user_id"/>
+                        </group>
                     </group>
                     <notebook>
                         <page string="Patients">
@@ -29,6 +38,7 @@
                 <field name="name"/>
                 <field name="specialization"/>
                 <field name="phone"/>
+                <field name="is_intern"/>
             </tree>
         </field>
     </record>

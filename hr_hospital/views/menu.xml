@@ -5,5 +5,6 @@
         <menuitem id="menu_doctor" name="Doctors" action="action_doctor"/>
         <menuitem id="menu_disease" name="Diseases" action="action_disease"/>
         <menuitem id="menu_visit" name="Visits" action="action_visit"/>
+        <menuitem id="menu_diagnosis" name="Diagnoses" action="action_diagnosis"/>
     </menuitem>
 </odoo>
