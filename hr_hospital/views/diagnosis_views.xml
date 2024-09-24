@@ -10,7 +10,7 @@
                         <field name="visit_id" widget="many2one"/>
                         <field name="disease_id"/>
                         <field name="description"/>
-                        <field name="is_approved"/>
+                        <field name="is_approved" readonly="1"/>
                     </group>
                 </sheet>
             </form>
@@ -24,7 +24,7 @@
             <tree>
                 <field name="visit_id" widget="many2one"/>
                 <field name="disease_id"/>
-                <field name="is_approved"/>
+                <field name="is_approved" readonly="1"/>
             </tree>
         </field>
     </record>

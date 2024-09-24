@@ -1,4 +1,5 @@
 from odoo import models, fields, api, _
+from odoo.exceptions import AccessError, ValidationError
 
 
 class Doctor(models.Model):
@@ -29,6 +30,43 @@ class Doctor(models.Model):
     def _check_mentor(self):
         for doctor in self:
             if doctor.mentor_id and doctor.mentor_id.is_intern:
-                raise models.ValidationError(
+                raise ValidationError(
                     _("An intern cannot be selected as a mentor.")
                 )
+
+    def write(self, vals):
+        if not self.env.is_admin():
+            if 'user_id' in vals or 'is_intern' in vals or 'mentor_id' in vals:
+                raise AccessError(
+                    _("Only administrators can modify 'Related User', "
+                      "'Is Intern', and 'Mentor' fields.")
+                )
+        return super(Doctor, self).write(vals)
+
+    @api.model
+    def create(self, vals):
+        if not self.env.is_admin() and (
+                'user_id' in vals or
+                'is_intern' in vals or
+                'mentor_id' in vals):
+            raise AccessError(
+                _("Only administrators can set 'Related User', "
+                  "'Is Intern', and 'Mentor' fields.")
+            )
+        return super(Doctor, self).create(vals)
+
+    def unlink(self):
+        if not self.env.is_admin():
+            raise AccessError(
+                _("Only administrators can delete doctor records.")
+            )
+        return super(Doctor, self).unlink()
+
+    @api.model
+    def fields_get(self, allfields=None, attributes=None):
+        res = super(Doctor, self).fields_get(allfields, attributes)
+        if not self.env.is_admin():
+            for field in ['is_intern', 'user_id', 'mentor_id']:
+                if field in res:
+                    res[field]['readonly'] = True
+        return res

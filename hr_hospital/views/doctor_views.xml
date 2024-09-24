@@ -39,6 +39,7 @@
                 <field name="specialization"/>
                 <field name="phone"/>
                 <field name="is_intern"/>
+                <field name="mentor_id"/>
             </tree>
         </field>
     </record>
