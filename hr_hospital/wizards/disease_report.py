@@ -1,14 +1,23 @@
 from odoo import models, fields, _
 from dateutil.relativedelta import relativedelta
 
+
 class DiseaseReport(models.TransientModel):
     _name = 'hr_hospital.disease_report'
     _description = 'Disease Report'
 
     doctor_ids = fields.Many2many('hr_hospital.doctor', string='Doctors')
     disease_ids = fields.Many2many('hr_hospital.disease', string='Diseases')
-    date_from = fields.Date(string='From Date', required=True, default=fields.Date.today().replace(day=1))
-    date_to = fields.Date(string='To Date', required=True, default=fields.Date.today() + relativedelta(day=31))
+    date_from = fields.Date(
+        string='From Date',
+        required=True,
+        default=fields.Date.today().replace(day=1)
+    )
+    date_to = fields.Date(
+        string='To Date',
+        required=True,
+        default=fields.Date.today() + relativedelta(day=31)
+    )
 
     def generate_report(self):
         domain = [

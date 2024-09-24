@@ -5,7 +5,11 @@ class DoctorReassignWizard(models.TransientModel):
     _name = 'hr_hospital.doctor_reassign_wizard'
     _description = 'Doctor Reassignment Wizard'
 
-    doctor_id = fields.Many2one('hr_hospital.doctor', string='New Doctor', required=True)
+    doctor_id = fields.Many2one(
+        'hr_hospital.doctor',
+        string='New Doctor',
+        required=True
+    )
 
     def action_reassign_doctor(self):
         patient_ids = self.env.context.get('active_ids', [])

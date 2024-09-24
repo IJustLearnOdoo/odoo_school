@@ -13,7 +13,11 @@ class Doctor(models.Model):
     ], required=True)
     patient_ids = fields.One2many('hr_hospital.patient', 'doctor_id')
     is_intern = fields.Boolean()
-    mentor_id = fields.Many2one('hr_hospital.doctor', string='Mentor', domain=[('is_intern', '=', False)])
+    mentor_id = fields.Many2one(
+        'hr_hospital.doctor',
+        string='Mentor',
+        domain=[('is_intern', '=', False)]
+    )
     user_id = fields.Many2one('res.users', string='Related User')
 
     @api.onchange('is_intern')
@@ -25,4 +29,6 @@ class Doctor(models.Model):
     def _check_mentor(self):
         for doctor in self:
             if doctor.mentor_id and doctor.mentor_id.is_intern:
-                raise models.ValidationError(_("An intern cannot be selected as a mentor."))
+                raise models.ValidationError(
+                    _("An intern cannot be selected as a mentor.")
+                )
