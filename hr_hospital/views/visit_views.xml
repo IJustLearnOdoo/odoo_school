@@ -5,6 +5,9 @@
         <field name="model">hr_hospital.visit</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <field name="status" widget="statusbar" options="{'clickable': '1'}"/>
+                </header>
                 <sheet>
                     <group>
                         <group>
@@ -14,7 +17,6 @@
                         </group>
                         <group>
                             <field name="actual_date"/>
-                            <field name="status"/>
                         </group>
                     </group>
                     <notebook>
@@ -47,9 +49,49 @@
         </field>
     </record>
 
+    <record id="view_visit_calendar" model="ir.ui.view">
+        <field name="name">hr_hospital.visit.calendar</field>
+        <field name="model">hr_hospital.visit</field>
+        <field name="arch" type="xml">
+            <calendar string="Visits" date_start="scheduled_date" color="status">
+                <field name="patient_id"/>
+                <field name="doctor_id"/>
+                <field name="status"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="view_visit_search" model="ir.ui.view">
+        <field name="name">hr_hospital.visit.search</field>
+        <field name="model">hr_hospital.visit</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="patient_id"/>
+                <field name="doctor_id"/>
+                <field name="status"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="group_by_status" context="{'group_by': 'status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_visit_pivot" model="ir.ui.view">
+        <field name="name">hr_hospital.visit.pivot</field>
+        <field name="model">hr_hospital.visit</field>
+        <field name="arch" type="xml">
+            <pivot string="Visits Analysis">
+                <field name="doctor_id" type="row"/>
+                <field name="status" type="col"/>
+                <field name="id" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
     <record id="action_visit" model="ir.actions.act_window">
         <field name="name">Visits</field>
         <field name="res_model">hr_hospital.visit</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,calendar,pivot</field>
+        <field name="context">{'search_default_group_by_status': 1}</field>
     </record>
 </odoo>
