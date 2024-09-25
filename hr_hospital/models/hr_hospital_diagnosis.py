@@ -11,6 +11,12 @@ class Diagnosis(models.Model):
         string='Visit',
         required=True
     )
+    patient_id = fields.Many2one(
+        'hr_hospital.patient',
+        string='Patient',
+        related='visit_id.patient_id',
+        store=True
+    )
     disease_id = fields.Many2one(
         'hr_hospital.disease',
         required=True
