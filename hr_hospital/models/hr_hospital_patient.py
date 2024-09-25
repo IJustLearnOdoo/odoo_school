@@ -13,6 +13,11 @@ class Patient(models.Model):
     visit_ids = fields.One2many('hr_hospital.visit', 'patient_id')
     passport_data = fields.Char()
     contact_person = fields.Char()
+    diagnosis_history_ids = fields.One2many(
+        'hr_hospital.diagnosis',
+        'patient_id',
+        string='Diagnosis History'
+    )
 
     @api.model
     def _update_all_ages(self):
@@ -33,3 +38,24 @@ class Patient(models.Model):
                 patient.age = age
             else:
                 patient.age = 0
+
+    def action_view_visits(self):
+        self.ensure_one()
+        return {
+            'name': 'Patient Visits',
+            'view_mode': 'tree,form',
+            'res_model': 'hr_hospital.visit',
+            'domain': [('patient_id', '=', self.id)],
+            'type': 'ir.actions.act_window',
+            'context': {'default_patient_id': self.id},
+        }
+
+    def action_create_visit(self):
+        return {
+            'name': 'Create Visit',
+            'view_mode': 'form',
+            'res_model': 'hr_hospital.visit',
+            'type': 'ir.actions.act_window',
+            'target': 'new',
+            'context': {'default_patient_id': self.id},
+        }
