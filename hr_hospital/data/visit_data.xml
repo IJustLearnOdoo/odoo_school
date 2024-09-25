@@ -15,6 +15,21 @@
         <field name="status">completed</field>
     </record>
 
+    <record id="visit_3" model="hr_hospital.visit">
+        <field name="patient_id" ref="patient_wilson"/>
+        <field name="doctor_id" ref="doctor_dorian"/>
+        <field name="scheduled_date" eval="(datetime.now() + relativedelta(days=3)).strftime('%Y-%m-%d %H:%M:%S')"/>
+        <field name="status">scheduled</field>
+    </record>
+
+    <record id="visit_4" model="hr_hospital.visit">
+        <field name="patient_id" ref="patient_brown"/>
+        <field name="doctor_id" ref="doctor_house"/>
+        <field name="scheduled_date" eval="(datetime.now() - relativedelta(days=5)).strftime('%Y-%m-%d %H:%M:%S')"/>
+        <field name="actual_date" eval="(datetime.now() - timedelta(days=5)).strftime('%Y-%m-%d %H:%M:%S')"/>
+        <field name="status">cancelled</field>
+    </record>
+
     <record id="diagnosis_1" model="hr_hospital.diagnosis">
         <field name="visit_id" ref="visit_2"/>
         <field name="disease_id" ref="disease_asthma"/>
