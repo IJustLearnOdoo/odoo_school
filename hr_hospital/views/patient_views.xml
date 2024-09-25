@@ -5,6 +5,10 @@
         <field name="model">hr_hospital.patient</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button name="action_view_visits" type="object" string="View Visits" class="oe_highlight"/>
+                    <button name="action_create_visit" type="object" string="Create Visit" class="oe_highlight"/>
+                </header>
                 <sheet>
                     <field name="photo" widget="image" class="oe_avatar"/>
                     <group>
@@ -25,6 +29,16 @@
                         <page string="Visits">
                             <field name="visit_ids"/>
                         </page>
+                        <page string="Diagnosis History">
+                            <field name="diagnosis_history_ids">
+                                <tree>
+                                    <field name="visit_id"/>
+                                    <field name="disease_id"/>
+                                    <field name="description"/>
+                                    <field name="is_approved"/>
+                                </tree>
+                            </field>
+                        </page>
                     </notebook>
                 </sheet>
             </form>
@@ -42,6 +56,21 @@
                 <field name="phone"/>
                 <field name="doctor_id"/>
             </tree>
+        </field>
+    </record>
+
+    <record id="view_patient_search" model="ir.ui.view">
+        <field name="name">hr_hospital.patient.search</field>
+        <field name="model">hr_hospital.patient</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="doctor_id"/>
+                <group expand="0" string="Group By">
+                    <filter string="Doctor" name="group_by_doctor" context="{'group_by': 'doctor_id'}"/>
+                </group>
+            </search>
         </field>
     </record>
 
