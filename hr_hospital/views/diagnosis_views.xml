@@ -11,6 +11,7 @@
                         <field name="disease_id"/>
                         <field name="description"/>
                         <field name="is_approved" readonly="1"/>
+                        <field name="date"/>
                     </group>
                 </sheet>
             </form>
@@ -25,13 +26,38 @@
                 <field name="visit_id" widget="many2one"/>
                 <field name="disease_id"/>
                 <field name="is_approved" readonly="1"/>
+                <field name="date"/>
             </tree>
+        </field>
+    </record>
+
+    <record id="view_diagnosis_pivot" model="ir.ui.view">
+        <field name="name">hr_hospital.diagnosis.pivot</field>
+        <field name="model">hr_hospital.diagnosis</field>
+        <field name="arch" type="xml">
+            <pivot string="Diagnosis Analysis">
+                <field name="disease_id" type="row"/>
+                <field name="date" type="col" interval="month"/>
+                <field name="count" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_diagnosis_graph" model="ir.ui.view">
+        <field name="name">hr_hospital.diagnosis.graph</field>
+        <field name="model">hr_hospital.diagnosis</field>
+        <field name="arch" type="xml">
+            <graph string="Diagnosis Analysis" type="bar">
+                <field name="disease_id"/>
+                <field name="date" interval="month"/>
+                <field name="count" type="measure"/>
+            </graph>
         </field>
     </record>
 
     <record id="action_diagnosis" model="ir.actions.act_window">
         <field name="name">Diagnoses</field>
         <field name="res_model">hr_hospital.diagnosis</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
     </record>
 </odoo>
