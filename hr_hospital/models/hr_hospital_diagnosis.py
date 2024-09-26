@@ -8,12 +8,10 @@ class Diagnosis(models.Model):
 
     visit_id = fields.Many2one(
         'hr_hospital.visit',
-        string='Visit',
         required=True
     )
     patient_id = fields.Many2one(
         'hr_hospital.patient',
-        string='Patient',
         related='visit_id.patient_id',
         store=True
     )
@@ -24,13 +22,25 @@ class Diagnosis(models.Model):
     description = fields.Text(
         string='Treatment Description'
     )
-    is_approved = fields.Boolean(
-        string='Approved'
-    )
+    is_approved = fields.Boolean()
     needs_approval = fields.Boolean(
         compute='_compute_needs_approval',
         store=True
     )
+    date = fields.Date(
+        string='Diagnosis Date',
+        default=fields.Date.context_today,
+        required=True
+    )
+    count = fields.Integer(
+        compute='_compute_count',
+        store=True
+    )
+
+    @api.depends()
+    def _compute_count(self):
+        for record in self:
+            record.count = 1
 
     @api.depends(
         'visit_id.doctor_id.is_intern',
