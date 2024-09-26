@@ -10,8 +10,19 @@ class Doctor(models.Model):
     specialization = fields.Selection([
         ('neurologist', 'Neurologist'),
         ('psychiatrist', 'Psychiatrist'),
-        ('therapist', 'Therapist')
+        ('therapist', 'Therapist'),
+        ('cardiologist', 'Cardiologist'),
+        ('dermatologist', 'Dermatologist'),
+        ('endocrinologist', 'Endocrinologist'),
+        ('gastroenterologist', 'Gastroenterologist'),
+        ('oncologist', 'Oncologist'),
+        ('pediatrician', 'Pediatrician'),
+        ('radiologist', 'Radiologist'),
+        ('urologist', 'Urologist'),
+        ('ophthalmologist', 'Ophthalmologist'),
+        ('orthopedic_surgeon', 'Orthopedic Surgeon')
     ], required=True)
+
     patient_ids = fields.One2many('hr_hospital.patient', 'doctor_id')
     is_intern = fields.Boolean()
     mentor_id = fields.Many2one(
@@ -19,7 +30,11 @@ class Doctor(models.Model):
         string='Mentor',
         domain=[('is_intern', '=', False)]
     )
-    user_id = fields.Many2one('res.users', string='Related User')
+    intern_ids = fields.One2many('hr_hospital.doctor',
+                                 'mentor_id',
+                                 string='Interns')
+    user_id = fields.Many2one('res.users',
+                              string='Related User')
 
     @api.onchange('is_intern')
     def _onchange_is_intern(self):
@@ -70,3 +85,16 @@ class Doctor(models.Model):
                 if field in res:
                     res[field]['readonly'] = True
         return res
+
+    def action_create_visit(self):
+        self.ensure_one()
+        return {
+            'name': _('Create Visit'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'hr_hospital.visit',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {
+                'default_doctor_id': self.id,
+            },
+        }
