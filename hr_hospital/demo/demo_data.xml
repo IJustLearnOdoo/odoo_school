@@ -16,6 +16,22 @@
         <field name="phone">+380789321456</field>
     </record>
 
+    <record id="doctor_intern_smith" model="hr_hospital.doctor">
+        <field name="name">Dr. Jane Smith</field>
+        <field name="specialization">Therapist</field>
+        <field name="phone">+380123456789</field>
+        <field name="is_intern" eval="True"/>
+        <field name="mentor_id" ref="doctor_house"/>
+    </record>
+
+    <record id="doctor_intern_johnson" model="hr_hospital.doctor">
+        <field name="name">Dr. Mark Johnson</field>
+        <field name="specialization">Neurologist</field>
+        <field name="phone">+380987654321</field>
+        <field name="is_intern" eval="True"/>
+        <field name="mentor_id" ref="doctor_ulysses"/>
+    </record>
+
     <record id="patient_brown" model="hr_hospital.patient">
         <field name="name">Oleksandr Panchenko</field>
         <field name="birthday">1991-08-22</field>
