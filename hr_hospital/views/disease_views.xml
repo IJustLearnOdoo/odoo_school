@@ -36,9 +36,24 @@
         </field>
     </record>
 
+    <record id="view_disease_search" model="ir.ui.view">
+        <field name="name">hr_hospital.disease.search</field>
+        <field name="model">hr_hospital.disease</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="description"/>
+                <searchpanel>
+                    <field name="parent_id" string="Disease Category" enable_counters="1" hierarchize="1"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
     <record id="action_disease" model="ir.actions.act_window">
         <field name="name">Diseases</field>
         <field name="res_model">hr_hospital.disease</field>
         <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_disease_search"/>
     </record>
 </odoo>
