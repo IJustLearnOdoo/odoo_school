@@ -8,12 +8,12 @@ class Patient(models.Model):
     _inherit = 'hr_hospital.person'
 
     birthday = fields.Date(required=True)
-    age = fields.Integer(compute='_compute_age', store=True)
+    age = fields.Integer(compute='_compute_age', store=True,
+                         group_operator="")
     doctor_id = fields.Many2one('hr_hospital.doctor')
     visit_ids = fields.One2many('hr_hospital.visit', 'patient_id')
     diagnosis_ids = fields.One2many('hr_hospital.diagnosis',
-                                    'patient_id',
-                                    string='Diagnoses')
+                                    'patient_id', string='Diagnoses')
     passport_data = fields.Char()
     contact_person = fields.Char()
     diagnosis_history_ids = fields.One2many(
