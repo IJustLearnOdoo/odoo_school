@@ -47,6 +47,8 @@
                         <page string="Mentor" invisible="not is_intern">
                             <group>
                                 <field name="mentor_id" readonly="1"/>
+                                <field name="specialization" readonly="1"/>
+                                <field name="phone" readonly="1"/>
                             </group>
                         </page>
                     </notebook>
@@ -82,13 +84,14 @@
         </field>
     </record>
 
-     <record id="view_doctor_kanban" model="ir.ui.view">
+    <record id="view_doctor_kanban" model="ir.ui.view">
         <field name="name">hr_hospital.doctor.kanban</field>
         <field name="model">hr_hospital.doctor</field>
         <field name="arch" type="xml">
             <kanban default_group_by="specialization">
                 <field name="name"/>
                 <field name="specialization"/>
+                <field name="mentor_id"/>
                 <field name="is_intern"/>
                 <templates>
                     <t t-name="kanban-box">
@@ -98,9 +101,16 @@
                                     <field name="name"/>
                                 </strong>
                                 <div>
-                                    <field name="specialization"/>
+                                    <i><field name="specialization"/></i>
                                 </div>
-                                <div>
+                                <div t-if="record.mentor_id.raw_value" class="mentor-info">
+                                    <strong>Mentor: </strong>
+                                    <a name="action_open_mentor_form" type="object" class="o_form_uri">
+                                        <field name="mentor_id"/>
+                                    </a>
+                                </div>
+                                <div class="oe_kanban_bottom_right intern-toggle">
+                                    <label for="is_intern" class="pe-2"><strong>Intern</strong></label>
                                     <field name="is_intern" widget="boolean_toggle"/>
                                 </div>
                                 <div class="text-muted">
