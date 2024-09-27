@@ -98,3 +98,15 @@ class Doctor(models.Model):
                 'default_doctor_id': self.id,
             },
         }
+
+    def action_open_mentor_form(self):
+        self.ensure_one()
+        action = {'type': 'ir.actions.act_window_close'}
+
+        action.update({
+            'type': 'ir.actions.act_window',
+            'res_model': 'hr_hospital.doctor',
+            'res_id': self.mentor_id.id,
+            'view_mode': 'form',
+        })
+        return action
