@@ -93,7 +93,7 @@
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">hr_hospital.report_doctor_document</field>
         <field name="report_file">hr_hospital.report_doctor_document</field>
-        <field name="print_report_name">'Doctor_Report_%s_%s' % (object.name.replace(' ', '_'), time.strftime('%d-%m-%Y_%H-%M-%S'))</field>
+        <field name="print_report_name">'%s_%s_Report' % (time.strftime('%d-%m-%Y_%H-%M-%S'), object.name.replace(' ', '_'))</field>
         <field name="binding_model_id" ref="model_hr_hospital_doctor"/>
         <field name="binding_type">report</field>
     </record>
