@@ -5,7 +5,7 @@ from odoo.exceptions import AccessError, ValidationError
 class Doctor(models.Model):
     _name = 'hr_hospital.doctor'
     _description = 'Doctor'
-    _inherit = 'hr_hospital.person'
+    _inherit = ['hr_hospital.person']
 
     specialization = fields.Selection([
         ('neurologist', 'Neurologist'),
@@ -23,7 +23,8 @@ class Doctor(models.Model):
         ('orthopedic_surgeon', 'Orthopedic Surgeon')
     ], required=True)
 
-    patient_ids = fields.One2many('hr_hospital.patient', 'doctor_id')
+    patient_ids = fields.One2many('hr_hospital.patient',
+                                  'doctor_id')
     is_intern = fields.Boolean()
     mentor_id = fields.Many2one(
         'hr_hospital.doctor',
@@ -35,6 +36,10 @@ class Doctor(models.Model):
                                  string='Interns')
     user_id = fields.Many2one('res.users',
                               string='Related User')
+    company_id = fields.Many2one('res.company', string='Company',
+                                 default=lambda self: self.env.company)
+    visit_ids = fields.One2many('hr_hospital.visit',
+                                'doctor_id', string='Visits')
 
     @api.onchange('is_intern')
     def _onchange_is_intern(self):
