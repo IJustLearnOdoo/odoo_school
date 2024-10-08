@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_doctor_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 class="text-center mt-4">
+                            <t t-esc="doc.name"/> - <t t-esc="dict(doc._fields['specialization'].selection).get(doc.specialization)"/>
+                        </h2>
+
+                         <h3 class="mt-4">Visit History</h3>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Patient</th>
+                                    <th>Status</th>
+                                    <th>Diagnosis</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="visits" t-value="doc.visit_ids.sorted(lambda v: v.scheduled_date, reverse=True)"/>
+                                <tr t-foreach="visits" t-as="visit">
+                                    <td><span t-field="visit.scheduled_date"/></td>
+                                    <td><span t-field="visit.patient_id.name"/></td>
+                                    <td><span t-field="visit.status"/></td>
+                                    <td>
+                                        <t t-foreach="visit.diagnosis_ids" t-as="diagnosis">
+                                            <div><span t-field="diagnosis.disease_id.name"/></div>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3 class="mt-4">Patients</h3>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Gender</th>
+                                    <th>Date of Birth</th>
+                                    <th>Phone</th>
+                                    <th>Visit Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="doc.patient_ids" t-as="patient">
+                                    <t t-set="latest_visit" t-value="patient.visit_ids.filtered(lambda v: v.doctor_id == doc).sorted(lambda v: v.scheduled_date, reverse=True)[:1]"/>
+                                    <tr>
+                                        <td><span t-field="patient.name"/></td>
+                                        <td><span t-field="patient.gender"/></td>
+                                        <td><span t-field="patient.birthday"/></td>
+                                        <td><span t-field="patient.phone"/></td>
+                                        <td>
+                                            <t t-if="latest_visit">
+                                                <span t-att-class="'badge ' +
+                                                    ('bg-warning' if latest_visit.status == 'scheduled' else
+                                                    'bg-success' if latest_visit.status == 'completed' else
+                                                    'bg-danger' if latest_visit.status == 'cancelled' else 'bg-secondary')">
+                                                    <t t-esc="dict(latest_visit._fields['status'].selection).get(latest_visit.status)"/>
+                                                </span>
+                                            </t>
+                                            <t t-else="">
+                                                <span class="badge bg-secondary">No visits</span>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <div class="footer" style="border-top: 1px solid black; margin-top: 20px; padding-top: 10px;">
+                            <div class="row">
+                                <div class="col-6">
+                                    <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')"/>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <span t-field="doc.company_id.city"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="report_doctor" model="ir.actions.report">
+        <field name="name">Doctor Report</field>
+        <field name="model">hr_hospital.doctor</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr_hospital.report_doctor_document</field>
+        <field name="report_file">hr_hospital.report_doctor_document</field>
+        <field name="print_report_name">'Doctor_Report_%s_%s' % (object.name.replace(' ', '_'), time.strftime('%d-%m-%Y_%H-%M-%S'))</field>
+        <field name="binding_model_id" ref="model_hr_hospital_doctor"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
