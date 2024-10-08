@@ -20,6 +20,7 @@
         'data/cron_jobs.xml',
         'wizards/disease_report_views.xml',
         'wizards/doctor_reassign_wizard_views.xml',
+        'reports/doctor_report.xml',
     ],
     'demo': [
         'demo/demo_data.xml',
