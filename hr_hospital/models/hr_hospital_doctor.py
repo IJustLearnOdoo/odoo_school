@@ -40,6 +40,7 @@ class Doctor(models.Model):
                                  default=lambda self: self.env.company)
     visit_ids = fields.One2many('hr_hospital.visit',
                                 'doctor_id', string='Visits')
+    color = fields.Integer(string='Color Index')
 
     @api.onchange('is_intern')
     def _onchange_is_intern(self):
@@ -91,17 +92,26 @@ class Doctor(models.Model):
                     res[field]['readonly'] = True
         return res
 
+    def action_view_visits(self):
+        self.ensure_one()
+        return {
+            'name': _('Doctor Visits'),
+            'view_mode': 'tree,form',
+            'res_model': 'hr_hospital.visit',
+            'domain': [('doctor_id', '=', self.id)],
+            'type': 'ir.actions.act_window',
+            'context': {'default_doctor_id': self.id},
+        }
+
     def action_create_visit(self):
         self.ensure_one()
         return {
             'name': _('Create Visit'),
-            'type': 'ir.actions.act_window',
-            'res_model': 'hr_hospital.visit',
             'view_mode': 'form',
+            'res_model': 'hr_hospital.visit',
+            'type': 'ir.actions.act_window',
             'target': 'new',
-            'context': {
-                'default_doctor_id': self.id,
-            },
+            'context': {'default_doctor_id': self.id},
         }
 
     def action_open_mentor_form(self):
