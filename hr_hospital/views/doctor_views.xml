@@ -85,46 +85,63 @@
     </record>
 
     <record id="view_doctor_kanban" model="ir.ui.view">
-        <field name="name">hr_hospital.doctor.kanban</field>
-        <field name="model">hr_hospital.doctor</field>
-        <field name="arch" type="xml">
-            <kanban default_group_by="specialization">
-                <field name="name"/>
-                <field name="specialization"/>
-                <field name="mentor_id"/>
-                <field name="is_intern"/>
-                <templates>
-                    <t t-name="kanban-box">
-                        <div class="oe_kanban_global_click">
-                            <div class="oe_kanban_details">
-                                <strong class="o_kanban_record_title">
-                                    <field name="name"/>
-                                </strong>
-                                <div>
-                                    <i><field name="specialization"/></i>
+    <field name="name">hr_hospital.doctor.kanban</field>
+    <field name="model">hr_hospital.doctor</field>
+    <field name="arch" type="xml">
+        <kanban default_group_by="specialization" class="o_kanban_small_column" on_create="quick_create" sample="1">
+            <field name="name"/>
+            <field name="specialization"/>
+            <field name="is_intern"/>
+            <field name="intern_ids"/>
+            <field name="color"/>
+            <templates>
+                <t t-name="kanban-box">
+                    <div t-attf-class="oe_kanban_global_click o_kanban_record_has_image_fill o_hr_kanban_record #{record.color.raw_value ? 'oe_kanban_color_' + record.color.raw_value : ''}">
+                        <div class="oe_kanban_details">
+                            <div class="o_kanban_record_top">
+                                <div class="o_kanban_record_headings">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/>
+                                    </strong>
+                                    <span class="o_kanban_record_subtitle">
+                                        <field name="specialization"/>
+                                    </span>
                                 </div>
-                                <div t-if="record.mentor_id.raw_value" class="mentor-info">
-                                    <strong>Mentor: </strong>
-                                    <a name="action_open_mentor_form" type="object" class="o_form_uri">
-                                        <field name="mentor_id"/>
+                                <div class="o_dropdown_kanban dropdown">
+                                    <a class="dropdown-toggle o-no-caret btn" role="button" data-bs-toggle="dropdown"
+                                       href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                                        <span class="fa fa-ellipsis-v"/>
                                     </a>
+                                    <div class="dropdown-menu" role="menu">
+                                        <a role="menuitem" type="edit" class="dropdown-item">Edit</a>
+                                        <a role="menuitem" type="delete" class="dropdown-item">Delete</a>
+                                        <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                    </div>
                                 </div>
-                                <div class="oe_kanban_bottom_right intern-toggle">
-                                    <label for="is_intern" class="pe-2"><strong>Intern</strong></label>
+                            </div>
+                            <div t-if="!record.is_intern.raw_value and record.intern_ids.raw_value.length > 0"
+                                 class="o_kanban_record_body">
+                                <strong><i>Interns:</i></strong>
+                                <field name="intern_ids" widget="many2many_tags"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_left">
                                     <field name="is_intern" widget="boolean_toggle"/>
                                 </div>
-                                <div class="text-muted">
-                                    <button name="action_create_visit" type="object" class="btn btn-link">
-                                        Schedule Visit
-                                    </button>
+                                <div class="oe_kanban_bottom_right">
+                                    <button name="action_view_visits" type="object"
+                                            class="btn btn-secondary btn-sm fa fa-calendar" title="View Visits"/>
+                                    <button name="action_create_visit" type="object"
+                                            class="btn btn-secondary btn-sm fa fa-plus" title="Create Visit"/>
                                 </div>
                             </div>
                         </div>
-                    </t>
-                </templates>
-            </kanban>
-        </field>
-    </record>
+                    </div>
+                </t>
+            </templates>
+        </kanban>
+    </field>
+</record>
 
     <record id="action_doctor" model="ir.actions.act_window">
         <field name="name">Doctors</field>
