@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Admin Access Rule - повинно бути першим! -->
+    <record id="rule_hospital_admin_full_access" model="ir.rule">
+        <field name="name">Hospital Administrator Full Access</field>
+        <field name="model_id" ref="model_hr_hospital_diagnosis"/>
+        <field name="groups" eval="[(4, ref('group_hospital_admin'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <!-- Patient Access Rules -->
+    <record id="rule_diagnosis_patient" model="ir.rule">
+        <field name="name">Patient can see only own diagnoses</field>
+        <field name="model_id" ref="model_hr_hospital_diagnosis"/>
+        <field name="groups" eval="[(4, ref('group_hospital_patient'))]"/>
+        <field name="domain_force">[('visit_id.patient_id.user_id','=',user.id)]</field>
+    </record>
+
+    <!-- Intern Access Rules -->
+    <record id="rule_diagnosis_intern" model="ir.rule">
+        <field name="name">Intern can see and edit only own diagnoses</field>
+        <field name="model_id" ref="model_hr_hospital_diagnosis"/>
+        <field name="groups" eval="[(4, ref('group_hospital_intern'))]"/>
+        <field name="domain_force">[('visit_id.doctor_id.user_id','=',user.id)]</field>
+    </record>
+
+    <!-- Doctor Access Rules -->
+    <record id="rule_diagnosis_doctor" model="ir.rule">
+        <field name="name">Doctor can see and edit own and interns diagnoses</field>
+        <field name="model_id" ref="model_hr_hospital_diagnosis"/>
+        <field name="groups" eval="[(4, ref('group_hospital_doctor'))]"/>
+        <field name="domain_force">['|', ('visit_id.doctor_id.user_id','=',user.id), ('visit_id.doctor_id.mentor_id.user_id','=',user.id)]</field>
+    </record>
+</odoo>
