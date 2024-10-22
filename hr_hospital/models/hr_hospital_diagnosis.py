@@ -3,6 +3,20 @@ from odoo.exceptions import ValidationError
 
 
 class Diagnosis(models.Model):
+    """
+    Represents a medical diagnosis in the hospital system.
+
+    Links diseases to visits and handles the approval workflow for intern
+    diagnoses.
+
+    Attributes:
+        visit_id (Many2one): Related visit
+        disease_id (Many2one): Diagnosed disease
+        description (Text): Treatment description
+        is_approved (Boolean): Whether diagnosis is approved
+        needs_approval (Boolean): Whether approval is required
+        date (Date): Diagnosis date
+    """
     _name = 'hr_hospital.diagnosis'
     _description = 'Diagnosis'
 
@@ -47,6 +61,13 @@ class Diagnosis(models.Model):
         'visit_id.doctor_id.mentor_id'
     )
     def _compute_needs_approval(self):
+        """
+       Determines if a diagnosis needs mentor approval.
+
+       Diagnosis needs approval if:
+           1. The doctor is an intern
+           2. The intern has a mentor assigned
+       """
         for diagnosis in self:
             doctor = diagnosis.visit_id.doctor_id
             diagnosis.needs_approval = (doctor.is_intern
