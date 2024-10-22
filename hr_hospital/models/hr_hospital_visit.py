@@ -5,6 +5,20 @@ from odoo.tools.translate import _
 
 
 class Visit(models.Model):
+    """
+   Represents a medical visit in the hospital system.
+
+   Tracks appointments between doctors and patients, including scheduling
+   and diagnosis information.
+
+   Attributes:
+       patient_id (Many2one): Related patient
+       doctor_id (Many2one): Attending doctor
+       scheduled_date (Datetime): Planned visit time
+       actual_date (Datetime): Actual visit time
+       status (Selection): Visit status (scheduled/completed/cancelled)
+       diagnosis_ids (One2many): Diagnoses made during the visit
+   """
     _name = 'hr_hospital.visit'
     _description = 'Patient Visit'
 
@@ -28,6 +42,12 @@ class Visit(models.Model):
 
     @api.constrains('patient_id', 'doctor_id', 'scheduled_date')
     def _check_duplicate_visit(self):
+        """
+        Prevents duplicate visits for the same doctor-patient pair on same day.
+
+        Raises:
+            ValidationError: If a duplicate visit is detected
+        """
         for visit in self:
             next_day = visit.scheduled_date + timedelta(days=1)
             duplicate = self.search([
