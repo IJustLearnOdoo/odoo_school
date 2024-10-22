@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Patient Group -->
+    <record id="group_hospital_patient" model="res.groups">
+        <field name="name">Hospital / Patient</field>
+        <field name="category_id" ref="base.module_category_human_resources"/>
+    </record>
+
+    <!-- Intern Group -->
+    <record id="group_hospital_intern" model="res.groups">
+        <field name="name">Hospital / Intern</field>
+        <field name="category_id" ref="base.module_category_human_resources"/>
+        <field name="implied_ids" eval="[(4, ref('group_hospital_patient'))]"/>
+    </record>
+
+    <!-- Doctor Group -->
+    <record id="group_hospital_doctor" model="res.groups">
+        <field name="name">Hospital / Doctor</field>
+        <field name="category_id" ref="base.module_category_human_resources"/>
+        <field name="implied_ids" eval="[(4, ref('group_hospital_intern'))]"/>
+    </record>
+
+    <!-- Manager Group -->
+    <record id="group_hospital_manager" model="res.groups">
+        <field name="name">Hospital / Manager</field>
+        <field name="category_id" ref="base.module_category_human_resources"/>
+        <field name="implied_ids" eval="[(4, ref('group_hospital_doctor'))]"/>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+
+    <!-- Administrator Group -->
+    <record id="group_hospital_admin" model="res.groups">
+        <field name="name">Hospital / Administrator</field>
+        <field name="category_id" ref="base.module_category_human_resources"/>
+        <field name="implied_ids" eval="[(4, ref('group_hospital_manager'))]"/>
+    </record>
+</odoo>
