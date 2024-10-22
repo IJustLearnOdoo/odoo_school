@@ -3,6 +3,23 @@ from odoo.exceptions import AccessError, ValidationError
 
 
 class Doctor(models.Model):
+    """
+        Represents a doctor in the hospital management system.
+
+        This model stores information about doctors, including their
+        specialization,
+        patients, and mentor/intern relationships.
+
+        Attributes:
+            name (Char): The doctor's full name
+            specialization (Selection): Medical specialization
+            patient_ids (One2many): Related patients
+            is_intern (Boolean): Whether the doctor is an intern
+            mentor_id (Many2one): Senior doctor mentoring this doctor if intern
+            intern_ids (One2many): Interns being mentored by this doctor
+            user_id (Many2one): Related user in the system
+            visit_ids (One2many): All visits associated with this doctor
+    """
     _name = 'hr_hospital.doctor'
     _description = 'Doctor'
     _inherit = ['hr_hospital.person']
@@ -49,6 +66,16 @@ class Doctor(models.Model):
 
     @api.constrains('mentor_id', 'is_intern')
     def _check_mentor(self):
+        """
+        Validates mentor-intern relationships.
+
+        Ensures that:
+            1. An intern cannot be a mentor
+            2. A doctor can't mentor themselves
+
+        Raises:
+            ValidationError: If validation fails
+        """
         for doctor in self:
             if doctor.mentor_id and doctor.mentor_id.is_intern:
                 raise ValidationError(
@@ -93,6 +120,12 @@ class Doctor(models.Model):
         return res
 
     def action_view_visits(self):
+        """
+        Opens a view displaying all visits for this doctor.
+
+       Returns:
+           dict: Action dictionary for the visits view
+       """
         self.ensure_one()
         return {
             'name': _('Doctor Visits'),
