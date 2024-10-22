@@ -15,7 +15,7 @@
                         <field name="disease_ids" widget="many2many_tags"/>
                     </group>
                 </group>
-                <footer>
+                <footer >
                     <button string="Generate Report" name="generate_report" type="object" class="btn-primary"/>
                     <button string="Cancel" class="btn-secondary" special="cancel"/>
                 </footer>
