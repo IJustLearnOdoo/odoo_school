@@ -7,7 +7,9 @@
     'website': 'https://odoo.school',
     'depends': ['base'],
     'data': [
+        'security/security.xml',
         'security/ir.model.access.csv',
+        'security/record_rules.xml',
         'views/doctor_views.xml',
         'views/patient_views.xml',
         'views/disease_views.xml',
