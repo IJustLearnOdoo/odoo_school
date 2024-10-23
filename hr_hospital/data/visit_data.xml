@@ -7,14 +7,6 @@
         <field name="status">scheduled</field>
     </record>
 
-    <record id="visit_2" model="hr_hospital.visit">
-        <field name="patient_id" ref="patient_davis"/>
-        <field name="doctor_id" ref="doctor_ulysses"/>
-        <field name="scheduled_date" eval="(datetime.now() + relativedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')"/>
-        <field name="actual_date" eval="(datetime.now() - timedelta(days=2)).strftime('%Y-%m-%d %H:%M:%S')"/>
-        <field name="status">completed</field>
-    </record>
-
     <record id="visit_3" model="hr_hospital.visit">
         <field name="patient_id" ref="patient_wilson"/>
         <field name="doctor_id" ref="doctor_dorian"/>
