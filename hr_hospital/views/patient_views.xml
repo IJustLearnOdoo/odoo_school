@@ -76,7 +76,7 @@
     </record>
 
     <record id="action_patient" model="ir.actions.act_window">
-        <field name="name">Patients 1</field>
+        <field name="name">Patients</field>
         <field name="res_model">hr_hospital.patient</field>
         <field name="view_mode">tree,form</field>
     </record>
