@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="1">
     <record id="diagnosis_demo_1" model="hr_hospital.diagnosis">
-        <field name="visit_id" ref="visit_2"/>
+        <field name="visit_id" ref="visit_3"/>
         <field name="disease_id" ref="disease_heart_attack"/>
         <field name="description">Mild heart attack symptoms. Prescribed medication and rest.</field>
         <field name="is_approved" eval="False"/>
@@ -9,7 +9,7 @@
     </record>
 
     <record id="diagnosis_demo_2" model="hr_hospital.diagnosis">
-        <field name="visit_id" ref="visit_2"/>
+        <field name="visit_id" ref="visit_4"/>
         <field name="disease_id" ref="disease_asthma"/>
         <field name="description">Severe asthma attack. Administered inhaler and monitored breathing.</field>
         <field name="is_approved" eval="False"/>
@@ -17,7 +17,7 @@
     </record>
 
     <record id="diagnosis_demo_3" model="hr_hospital.diagnosis">
-        <field name="visit_id" ref="visit_2"/>
+        <field name="visit_id" ref="visit_3"/>
         <field name="disease_id" ref="disease_pneumonia"/>
         <field name="description">Early stages of pneumonia detected. Prescribed antibiotics.</field>
         <field name="is_approved" eval="False"/>
@@ -25,7 +25,7 @@
     </record>
 
     <record id="diagnosis_demo_4" model="hr_hospital.diagnosis">
-        <field name="visit_id" ref="visit_2"/>
+        <field name="visit_id" ref="visit_4"/>
         <field name="disease_id" ref="disease_stroke"/>
         <field name="description">Minor stroke symptoms. Immediate treatment and monitoring required.</field>
         <field name="is_approved" eval="False"/>
@@ -33,7 +33,7 @@
     </record>
 
     <record id="diagnosis_demo_5" model="hr_hospital.diagnosis">
-        <field name="visit_id" ref="visit_2"/>
+        <field name="visit_id" ref="visit_3"/>
         <field name="disease_id" ref="disease_heart_attack"/>
         <field name="description">Suspected heart attack. ECG performed and medication administered.</field>
         <field name="is_approved" eval="False"/>
@@ -41,7 +41,7 @@
     </record>
 
     <record id="diagnosis_demo_6" model="hr_hospital.diagnosis">
-        <field name="visit_id" ref="visit_2"/>
+        <field name="visit_id" ref="visit_4"/>
         <field name="disease_id" ref="disease_asthma"/>
         <field name="description">Routine asthma check-up. Adjusted medication dosage.</field>
         <field name="is_approved" eval="False"/>
