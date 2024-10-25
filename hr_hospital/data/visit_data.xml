@@ -23,14 +23,14 @@
     </record>
 
     <record id="diagnosis_1" model="hr_hospital.diagnosis">
-        <field name="visit_id" ref="visit_2"/>
+        <field name="visit_id" ref="visit_4"/>
         <field name="disease_id" ref="disease_asthma"/>
         <field name="description">Patient shows signs of mild asthma. Prescribed inhaler and follow-up in 2 weeks.</field>
         <field name="is_approved" eval="True"/>
     </record>
 
     <record id="diagnosis_2" model="hr_hospital.diagnosis">
-        <field name="visit_id" ref="visit_2"/>
+        <field name="visit_id" ref="visit_3"/>
         <field name="disease_id" ref="disease_heart_attack"/>
         <field name="description">Patient experienced chest pain. EKG shows no signs of heart attack. Recommended stress test.</field>
         <field name="is_approved" eval="False"/>
